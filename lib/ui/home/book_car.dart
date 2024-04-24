@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:car_rental/constants.dart';
-import 'package:car_rental/data.dart';
+import 'package:smartbid/model/cars_model.dart';
 
 class BookCar extends StatefulWidget {
 
-  final Car car;
+  final CarsModel car;
 
   BookCar({required this.car});
 
@@ -94,7 +93,7 @@ class _BookCarState extends State<BookCar> {
                                   width: 45,
                                   height: 45,
                                   decoration: BoxDecoration(
-                                    color: kPrimaryColor,
+                                    color: Theme.of(context).primaryColor,
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(15),
                                     ),
@@ -358,7 +357,7 @@ class _BookCarState extends State<BookCar> {
             Container(
               height: 50,
               decoration: BoxDecoration(
-                color: kPrimaryColor,
+                color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.all(
                   Radius.circular(15),
                 ),

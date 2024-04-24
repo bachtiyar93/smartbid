@@ -1,17 +1,22 @@
+import 'package:apphelper/apphelpers.dart';
 import 'package:flutter/material.dart';
-import 'package:car_rental/data.dart';
+import 'package:smartbid/controller/managstate.dart';
+import 'package:smartbid/model/brand.dart';
+import 'package:smartbid/model/cars_model.dart';
 
-Widget buildDealer(Dealer dealer, int index){
+Widget buildDealer(BrandCar dealer, int index){
+  ManagState state = AppHelpers.getState<ManagState>();
   return Container(
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.all(
         Radius.circular(15),
       ),
     ),
-    padding: EdgeInsets.all(16),
+    padding: const EdgeInsets.all(16),
     margin: EdgeInsets.only(right: 16, left: index == 0 ? 16 : 0),
     width: 150,
+    height: 150,
     child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -19,10 +24,10 @@ Widget buildDealer(Dealer dealer, int index){
         Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(dealer.image), 
+              image: AssetImage(dealer.logo),
               fit: BoxFit.cover,
             ),
-            borderRadius: BorderRadius.all(
+            borderRadius: const BorderRadius.all(
               Radius.circular(15),
             ),
           ),
@@ -30,22 +35,21 @@ Widget buildDealer(Dealer dealer, int index){
           width: 60,
         ),
 
-        SizedBox(
-          height: 16,
+        const SizedBox(
+          height: 5,
         ),
 
         Text(
-          dealer.name,
-          style: TextStyle(
+          dealer.brand,
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            height: 1,
+            height: 2,
           ),
         ),
 
-        Text(
-          dealer.offers.toString() + " produk",
-          style: TextStyle(
+        Text("${state.listCars.where((element) => element.brand==dealer.brand).length} produk",
+          style: const TextStyle(
             fontSize: 14,
             color: Colors.grey,
           ),

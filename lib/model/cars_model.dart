@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 
-class NavigationItem {
+class TabbarNavigationItem {
 
   IconData iconData;
 
-  NavigationItem(this.iconData);
+  TabbarNavigationItem(this.iconData);
 
 }
 
-List<NavigationItem> getNavigationItemList(){
-  return <NavigationItem>[
-    NavigationItem(Icons.home),
-    NavigationItem(Icons.calendar_today),
-    NavigationItem(Icons.notifications),
-    NavigationItem(Icons.person),
+List<TabbarNavigationItem> getTabList(){
+  return <TabbarNavigationItem>[
+    TabbarNavigationItem(Icons.home),
+    TabbarNavigationItem(Icons.calendar_today),
+    TabbarNavigationItem(Icons.notifications),
+    TabbarNavigationItem(Icons.person),
   ];
 }
 
-class Car {
+class CarsModel {
 
   String brand;
   String model;
@@ -26,13 +26,13 @@ class Car {
   bool condition;
   List<String> images;
 
-  Car(this.brand, this.model, this.price, this.discount,this.condition, this.images);
+  CarsModel(this.brand, this.model, this.price, this.discount,this.condition, this.images);
 
 }
 
-List<Car> getCarList(){
-  return <Car>[
-    Car(
+List<CarsModel> getCarList(){
+  return <CarsModel>[
+    CarsModel(
       "Land Rover",
       "Discovery",
       2580,
@@ -44,7 +44,7 @@ List<Car> getCarList(){
         "assets/images/land_rover_2.png",
       ],
     ),
-    Car(
+    CarsModel(
       "Alfa Romeo",
       "C4",
       3580,
@@ -54,7 +54,7 @@ List<Car> getCarList(){
         "assets/images/alfa_romeo_c4_0.png",
       ],
     ),
-    Car(
+    CarsModel(
       "Nissan",
       "GTR",
       1100,
@@ -67,7 +67,7 @@ List<Car> getCarList(){
         "assets/images/nissan_gtr_3.png",
       ],
     ),
-    Car(
+    CarsModel(
       "Acura",
       "MDX 2020",
       2200,
@@ -79,7 +79,7 @@ List<Car> getCarList(){
         "assets/images/acura_2.png",
       ],
     ),
-    Car(
+    CarsModel(
       "Chevrolet",
       "Camaro",
       3400,
@@ -91,7 +91,7 @@ List<Car> getCarList(){
         "assets/images/camaro_2.png",
       ],
     ),
-    Car(
+    CarsModel(
       "Ferrari",
       "Spider 488",
       4200,
@@ -105,7 +105,7 @@ List<Car> getCarList(){
         "assets/images/ferrari_spider_488_4.png",
       ],
     ),
-    Car(
+    CarsModel(
       "Ford",
       "Focus",
       2300,
@@ -116,7 +116,7 @@ List<Car> getCarList(){
         "assets/images/ford_1.png",
       ],
     ),
-    Car(
+    CarsModel(
       "Fiat",
       "500x",
       1450,
@@ -127,7 +127,7 @@ List<Car> getCarList(){
         "assets/images/fiat_1.png",
       ],
     ),
-    Car(
+    CarsModel(
       "Honda",
       "Civic",
       900,
@@ -137,7 +137,7 @@ List<Car> getCarList(){
         "assets/images/honda_0.png",
       ],
     ),
-    Car(
+    CarsModel(
       "Citroen",
       "Picasso",
       1200,
@@ -152,61 +152,8 @@ List<Car> getCarList(){
   ];
 }
 
-class Dealer {
-
-  String name;
-  int offers;
-  String image;
 
 
-  Dealer(this.name, this.offers, this.image);
-
-}
-
-List<Dealer> getDealerList(){
-  return <Dealer>[
-    Dealer(
-      "BMW",
-      174,
-      "assets/images/bmw.png",
-    ),
-    Dealer(
-      "Audi",
-      174,
-      "assets/images/audi.png",
-    ),
-    Dealer(
-      "Honda",
-      174,
-      "assets/images/honda.png",
-    ),
-    Dealer(
-      "Suzuki",
-      174,
-      "assets/images/suzuki.png",
-    ),
-    Dealer(
-      "Toyota",
-      174,
-      "assets/images/toyota.png",
-    ),
-    Dealer(
-      "Hertz",
-      174,
-      "assets/images/hertz.png",
-    ),
-    Dealer(
-      "Avis",
-      126,
-      "assets/images/avis.png",
-    ),
-    Dealer(
-      "Tesla",
-      89,
-      "assets/images/tesla.jpg",
-    ),
-  ];
-}
 
 class Filter {
 

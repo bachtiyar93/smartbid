@@ -4,7 +4,6 @@ import 'package:smartbid/controller/initpage.dart';
 
 class Base extends StatelessWidget {
   const Base({super.key});
-
   @override
   Widget build(BuildContext context) {
     return

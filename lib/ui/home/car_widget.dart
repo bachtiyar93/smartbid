@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:car_rental/data.dart';
-import 'package:car_rental/constants.dart';
+import 'package:smartbid/model/cars_model.dart';
 
-Widget buildCar(Car car, int? index){
+Widget buildCar(CarsModel car, int? index){
   return Container(
     decoration: BoxDecoration(
       color: Colors.white,

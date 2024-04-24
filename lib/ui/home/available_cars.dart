@@ -1,29 +1,15 @@
-import 'package:car_rental/car_widget.dart';
+import 'package:apphelper/apphelpers.dart';
 import 'package:flutter/material.dart';
-import 'package:car_rental/constants.dart';
-import 'package:car_rental/data.dart';
-import 'package:car_rental/book_car.dart';
+import 'package:smartbid/controller/managstate.dart';
+import 'package:smartbid/model/cars_model.dart';
+import 'package:smartbid/ui/home/book_car.dart';
+import 'package:smartbid/ui/home/car_widget.dart';
 
-class AvailableCars extends StatefulWidget {
-  @override
-  _AvailableCarsState createState() => _AvailableCarsState();
-}
+class AvailableCars extends StatelessWidget {
+  const AvailableCars({super.key});
 
-class _AvailableCarsState extends State<AvailableCars> {
-
-  List<Filter> filters = getFilterList();
-  late Filter selectedFilter;
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      selectedFilter = filters[0];
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    ManagState state = AppHelpers.getState<ManagState>();
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: SafeArea(
@@ -64,7 +50,7 @@ class _AvailableCarsState extends State<AvailableCars> {
               ),
 
               Text(
-                "Unit Tersedia (" + getCarList().length.toString() + ")",
+                "Unit Tersedia (" + state.listCars.length.toString() + ")",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 36,
@@ -83,7 +69,7 @@ class _AvailableCarsState extends State<AvailableCars> {
                   crossAxisCount: 2,
                   crossAxisSpacing: 15,
                   mainAxisSpacing: 15,
-                  children: getCarList().map((item) {
+                  children: state.listCars.map((item) {
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -108,9 +94,9 @@ class _AvailableCarsState extends State<AvailableCars> {
         ),
         child: Row(
           children: [
-            buildFilterIcon(),
+            buildFilterIcon(context),
             Row(
-              children: buildFilters(),
+              children: buildFilters(context),
             ),
           ],
         ),
@@ -118,13 +104,13 @@ class _AvailableCarsState extends State<AvailableCars> {
     );
   }
 
-  Widget buildFilterIcon(){
+  Widget buildFilterIcon(BuildContext context){
     return Container(
       width: 50,
       height: 50,
       margin: EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: kPrimaryColor,
+        color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.all(
           Radius.circular(15),
         ),
@@ -139,29 +125,27 @@ class _AvailableCarsState extends State<AvailableCars> {
     );
   }
 
-  List<Widget> buildFilters(){
+  List<Widget> buildFilters(BuildContext context){
+    ManagState state = AppHelpers.getState<ManagState>();
     List<Widget> list = [];
-    for (var i = 0; i < filters.length; i++) {
-      list.add(buildFilter(filters[i]));
+    for (var i = 0; i < state.filters.length; i++) {
+      list.add(buildFilter(state.filters[i], context));
     }
     return list;
   }
 
-  Widget buildFilter(Filter filter){
+  Widget buildFilter(Filter filter, BuildContext context){
+    ManagState state = AppHelpers.getState<ManagState>();
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedFilter = filter;
-        });
-      },
+      onTap: (){},
       child: Padding(
         padding: EdgeInsets.only(right: 16),
         child: Text(
           filter.name,
           style: TextStyle(
-            color: selectedFilter == filter ? kPrimaryColor : Colors.grey[300],
+            color: state.selectedFilter == filter ? Theme.of(context).primaryColor : Colors.grey[300],
             fontSize: 16,
-            fontWeight: selectedFilter == filter ? FontWeight.bold : FontWeight.normal,
+            fontWeight: state.selectedFilter == filter ? FontWeight.bold : FontWeight.normal,
           ),
         ),
       ),

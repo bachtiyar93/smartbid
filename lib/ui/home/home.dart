@@ -1,29 +1,21 @@
+import 'dart:developer';
+
+import 'package:apphelper/apphelpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-class Showroom extends StatefulWidget {
-  @override
-  _ShowroomState createState() => _ShowroomState();
-}
-
-class _ShowroomState extends State<Showroom> {
-  List<NavigationItem> navigationItems = getNavigationItemList();
-  late NavigationItem selectedItem;
-
-  List<Car> cars = getCarList();
-  List<Dealer> dealers = getDealerList();
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      selectedItem = navigationItems[0];
-    });
-  }
-
+import 'package:smartbid/controller/managstate.dart';
+import 'package:smartbid/model/brand.dart';
+import 'package:smartbid/model/cars_model.dart';
+import 'package:smartbid/ui/home/available_cars.dart';
+import 'package:smartbid/ui/home/book_car.dart';
+import 'package:smartbid/ui/home/car_widget.dart';
+import 'package:smartbid/ui/home/dealer_widget.dart';
+class Home extends StatelessWidget {
+  const Home({super.key});
   @override
   Widget build(BuildContext context) {
+    ManagState state = AppHelpers.getState<ManagState>();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -38,7 +30,7 @@ class _ShowroomState extends State<Showroom> {
           ),
         ),
         centerTitle: false,
-        actions: [
+        actions: const [
           Padding(
             padding: EdgeInsets.only(right: 16),
             child: Icon(
@@ -54,24 +46,24 @@ class _ShowroomState extends State<Showroom> {
         children: [
 
           Container(
-            padding: EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(bottom: 10),
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: 'Cari',
-                  hintStyle: TextStyle(fontSize: 16),
+                  hintStyle: const TextStyle(fontSize: 16),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       width: 0, 
                       style: BorderStyle.none,
                     ),
                   ),
                   filled: true,
                   fillColor: Colors.grey[100],
-                  contentPadding: EdgeInsets.only(left: 30,),
-                  suffixIcon: Padding(
+                  contentPadding: const EdgeInsets.only(left: 30,),
+                  suffixIcon: const Padding(
                     padding: EdgeInsets.only(right: 24.0, left: 16.0),
                     child: Icon(
                       Icons.search,
@@ -86,11 +78,11 @@ class _ShowroomState extends State<Showroom> {
 
           Expanded(
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.grey[100],
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
                   ),
@@ -99,7 +91,7 @@ class _ShowroomState extends State<Showroom> {
                   children: [
 
                     Padding(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -120,18 +112,18 @@ class _ShowroomState extends State<Showroom> {
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
-                                  color: kPrimaryColor,
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                               ),
 
-                              SizedBox(
+                              const SizedBox(
                                 width: 8,
                               ),
 
                               Icon(
                                 Icons.arrow_forward_ios,
                                 size: 12,
-                                color: kPrimaryColor,
+                                color: Theme.of(context).colorScheme.primary,
                               ),
 
                             ],
@@ -144,9 +136,9 @@ class _ShowroomState extends State<Showroom> {
                     Container(
                       height: 300,
                       child: ListView(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
-                        children: buildDeals(),
+                        children: buildDeals(state.listCars, context),
                       ),
                     ),
 
@@ -158,21 +150,21 @@ class _ShowroomState extends State<Showroom> {
                         );
                       },
                       child: Padding(
-                        padding: EdgeInsets.only(top: 16, right: 16, left: 16),
+                        padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: kPrimaryColor,
-                            borderRadius: BorderRadius.all(
+                            color: Theme.of(context).colorScheme.primary,
+                            borderRadius: const BorderRadius.all(
                               Radius.circular(15),
                             ),
                           ),
-                          padding: EdgeInsets.all(24),
+                          padding: const EdgeInsets.all(24),
                           height: 120,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
 
-                              Column(
+                              const Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -198,7 +190,7 @@ class _ShowroomState extends State<Showroom> {
                               ),
 
                               Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(15),
@@ -209,7 +201,7 @@ class _ShowroomState extends State<Showroom> {
                                 child: Center(
                                   child: Icon(
                                     Icons.arrow_forward_ios,
-                                    color: kPrimaryColor,
+                                    color: Theme.of(context).colorScheme.primary,
                                   ),
                                 ),
                               ),
@@ -221,7 +213,7 @@ class _ShowroomState extends State<Showroom> {
                     ),
 
                     Padding(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -243,18 +235,18 @@ class _ShowroomState extends State<Showroom> {
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
-                                  color: kPrimaryColor,
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                               ),
 
-                              SizedBox(
+                              const SizedBox(
                                 width: 8,
                               ),
 
                               Icon(
                                 Icons.arrow_forward_ios,
                                 size: 12,
-                                color: kPrimaryColor,
+                                color: Theme.of(context).colorScheme.primary,
                               ),
 
                             ],
@@ -265,12 +257,12 @@ class _ShowroomState extends State<Showroom> {
                     ),
 
                     Container(
-                      height: 150,
-                      margin: EdgeInsets.only(bottom: 16),
+                      height: 200,
+                      margin: const EdgeInsets.only(bottom: 16),
                       child: ListView(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
-                        children: buildDealers(),
+                        children: buildDealers(state.listBrand),
                       ),
                     ),
 
@@ -284,7 +276,7 @@ class _ShowroomState extends State<Showroom> {
       ),
       bottomNavigationBar: Container(
         height: 70,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
@@ -293,13 +285,13 @@ class _ShowroomState extends State<Showroom> {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: buildNavigationItems(),
+          children: buildNavigationItems(state.listTab, context),
         ),
       ),
     );
   }
 
-  List<Widget> buildDeals(){
+  List<Widget> buildDeals(List<CarsModel> cars, context){
     List<Widget> list = [];
     for (var i = 0; i < cars.length; i++) {
       list.add(
@@ -317,7 +309,7 @@ class _ShowroomState extends State<Showroom> {
     return list;
   }
 
-  List<Widget> buildDealers(){
+  List<Widget> buildDealers(List<BrandCar> dealers){
     List<Widget> list = [];
     for (var i = 0; i < dealers.length; i++) {
       list.add(buildDealer(dealers[i], i));
@@ -325,34 +317,30 @@ class _ShowroomState extends State<Showroom> {
     return list;
   }
 
-  List<Widget> buildNavigationItems(){
+  List<Widget> buildNavigationItems(List<TabbarNavigationItem> listTabbar, BuildContext context){
     List<Widget> list = [];
-    for (var navigationItem in navigationItems) {
-      list.add(buildNavigationItem(navigationItem));
+    for (var a in listTabbar) {
+      list.add(buildNavigationItem(a,  context));
     }
     return list;
   }
 
-  Widget buildNavigationItem(NavigationItem item){
+  Widget buildNavigationItem(TabbarNavigationItem item, BuildContext context){
+    ManagState state = AppHelpers.getState<ManagState>();
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedItem = item;
-        });
-      },
+      onTap: () => state.tabSelected,
       child: Container(
         width: 50,
         child: Stack(
           children: <Widget>[
-
-            selectedItem == item 
+            state.tabSelected == item
             ? Center(
               child: Container(
                 height: 50,
                 width: 50,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: kPrimaryColorShadow,
+                  color: Theme.of(context).cardColor,
                 ),
               ),
             )
@@ -361,7 +349,7 @@ class _ShowroomState extends State<Showroom> {
             Center(
               child: Icon(
                 item.iconData,
-                color: selectedItem == item ? kPrimaryColor : Colors.grey[400],
+                color: state.tabSelected == item ? Theme.of(context).primaryColor : Colors.grey[400],
                 size: 24,
               ),
             )
